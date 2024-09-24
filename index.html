@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&family=Roboto+Flex:opsz,wdth,wght@8..144,112.5,400;8..144,112.5,700;8..144,112.5,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/app.css">
+    <title>Documentation - Home</title>
+</head>
+<body class="dark:bg-[#131313] dark:text-white font-circle">
+    <pageHead class="fixed z-50 block h-12 w-full shadow-md dark:text-white">
+        <leftDivision class="h-12 inline-grid grid-cols-[1fr 1fr] gap-2 justify-center items-center">
+            <logoText class="col-start-2">
+                <span class="font-circleBold font-black">Documentation</span>
+            </logoText>
+        </leftDivision>
+        <navBar class="flex float-right h-12 items-center justify-evenly">
+            <a href="https://api.xefili.dev/v1/">
+                <home class="flex items-center font-circleBold mr-8 md:before:content-['API⠀']"><span class="material-symbols-outlined">api</span></home>
+            </a>
+            <a href="blog.html">
+                <blog class="flex items-center font-circleBold mr-8 md:before:content-['Blog⠀']"><span class="material-symbols-outlined">chat</span></Blog>
+            </a>
+            <a href="https://xefili.dev/">
+                <docs class="flex items-center font-circleBold mr-8 md:before:content-['Home⠀']"><span class="material-symbols-outlined">home</span></Docs>
+            </a>
+            <a href="tools.html">
+                <tools class="flex items-center font-circleBold mr-8 md:before:content-['Tools⠀']"><span class="material-symbols-outlined">construction</span></search>
+            </a>
+        </navBar>
+    </pageHead>
+    <content class="grid grid-cols-1 justify-items-center w-full absolute mt-16">
+        <h1 class="mx-2 text-3xl bg-clip-text bg-gradient-to-br from-emerald-500 to-cyan-600 text-transparent text-left">Welcome to the new documentation!</h1>
+        <p class="mx-2 text-3xl text-gray-600">Find infos on everything, in 3 languages.</p>
+
+        <div class="mt-12 w-full flex flex-col items-center">
+            <input class="lg:w-1/2 w-72 mx-4 p-4 rounded-2xl dark:bg-[#1e1f20]" placeholder="search..." type="search" name="search" id="search">
+            <ul id="res" class="mt-8 mb-24 flex-col flex gap-2">
+            </ul>
+        </div>
+        
+        <div class="flex lg:flex-row flex-col justify-evenly">
+            <card class="relative">
+                <h1>API</h1>
+                <p>API documentation and usage examples.</p>
+                <e class="text-3xl material-symbols-outlined bg-white dark:text-white dark:bg-[#131313] rounded-full px-3 py-2 w-fit absolute bottom-0 right-0 m-4">api</e>
+            </card>
+            <card class="relative">
+                <h1>Building</h1>
+                <p>How to build TailwindCSS for production or development use.</p>
+                <e class="text-3xl material-symbols-outlined bg-white dark:text-white dark:bg-[#131313] rounded-full px-3 py-2 w-fit absolute bottom-0 right-0 m-4">window ios dns</e>
+            </card>
+        </div>
+    </content>
+</body>
+<script type="module">
+let search = document.getElementById("search");
+let res = document.getElementById("res");
+
+// will be fetched from API later on, processing will still be handled client-side.
+let data = [
+    {
+        "title": "Endpoints",
+        "parent": "API",
+        "link": "/en/endpoints"
+    },
+    {
+        "title": "Endpoint",
+        "parent": "API",
+        "link": "/en/endpoints"
+    }
+]
+
+import Fuse from 'https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.mjs';
+
+const fuse = new Fuse(data, {keys:["title", "parent"]});
+
+search.addEventListener("input", () => {
+    let fuzzy = fuse.search(search.value, {limit: 2});
+    console.info(fuzzy);
+    let a = document.createElement("a");
+    let a2 = document.createElement("a");
+
+    a.classList.add("border-2", "border-gray-600", "rounded-lg", "p-4");
+    a2.classList.add("border-2", "border-gray-600", "rounded-lg", "p-4");
+
+    if(fuzzy.length == 2) {
+        try {
+            while (res.firstChild) {
+                res.removeChild(res.firstChild);
+            }
+        } catch(e) {
+            console.info("Removed all children...");
+        }
+        a.setAttribute("href", fuzzy[0].item.link);
+        a.innerHTML = `${fuzzy[0].item.title} - ${fuzzy[0].item.parent}`;
+        res.appendChild(a);
+        a2.setAttribute("href", fuzzy[1].item.link);
+        a2.innerHTML = `${fuzzy[1].item.title} - ${fuzzy[1].item.parent}`;
+        res.appendChild(a2);
+    } else {
+        try {
+            while (res.firstChild) {
+                res.removeChild(res.firstChild);
+            }
+        } catch(e) {
+            console.info("Removed all children...");
+        }
+        a.setAttribute("href", fuzzy[0].item.link);
+        a.innerHTML = `${fuzzy[0].item.title} - ${fuzzy[0].item.parent}`;
+        res.appendChild(a);
+    }
+});
+</script>
+</html>
