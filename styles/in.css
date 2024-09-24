@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    h1, h2, h3 {
+        @apply font-circleBold
+    }
+    card {
+        @apply bg-gray-200 hover:bg-gray-300 dark:hover:bg-[#333333] dark:bg-[#1e1f20] flex flex-col dark:text-white w-auto lg:w-72 h-48 lg:h-72 p-4 m-2 rounded-xl;
+    }
+}
