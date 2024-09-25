@@ -6,7 +6,8 @@ module.exports = {
   theme: {
     fontFamily: {
       'circle': ['Plus Jakarta Sans', 'sans-serif'],
-      'circleBold': ['Plus Jakarta Sans Extrabold', 'sans-serif']
+      'circleBold': ['Plus Jakarta Sans Extrabold', 'sans-serif'],
+      'mono': ['Cascadia Code', "Ubuntu Mono", "monospace"]
     },
     extend: {},
   },
