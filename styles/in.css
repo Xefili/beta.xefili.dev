@@ -3,10 +3,20 @@
 @tailwind utilities;
 
 @layer base {
+    @font-face {
+        font-family: "Cascadia Code";
+        src: url('CascadiaCode.ttf') format('.ttf');
+    }
     h1, h2, h3 {
-        @apply font-circleBold
+        @apply font-circleBold;
     }
     card {
         @apply bg-gray-200 hover:bg-gray-300 dark:hover:bg-[#333333] dark:bg-[#1e1f20] flex flex-col dark:text-white w-auto lg:w-72 h-48 lg:h-72 p-4 m-2 rounded-xl;
+    }
+    space {
+        @apply block w-full h-8;
+    }
+    pre {
+        @apply font-mono;
     }
 }
