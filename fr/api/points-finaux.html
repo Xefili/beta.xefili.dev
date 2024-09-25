@@ -17,17 +17,66 @@
         </leftDivision>
         <navBar class="flex float-right h-12 items-center justify-evenly">
             <a>
-                <home class="flex items-center font-circleBold mr-8 md:before:content-['Page⠀Principale⠀']"><span class="material-symbols-outlined">home</span></home>
+                <home class="flex items-center font-circleBold mr-8 md:before:content-['Page_Principale⠀']"><span class="material-symbols-outlined">home</span></home>
             </a>
             <a>
-                <blog class="flex items-center font-circleBold mr-8 md:before:content-['Signaler⠀une⠀erreur⠀']"><span class="material-symbols-outlined">report</span></Blog>
+                <blog class="flex items-center font-circleBold mr-8 md:before:content-['Signaler_une_erreur⠀']"><span class="material-symbols-outlined">report</span></Blog>
             </a>
         </navBar>
     </pageHead>
-    <content class="mt-16 absolute">
-        <h1>Points finaux</h1>
-        <h2>Apercu</h2>
-        <p>L'API est accessible à l'adresse <a href="https://api.xefili.dev/v1">api.xefili.dev</a>. Toutes les routes commencent par un /, les routes sensibles ou destructives sont protégées par mot de passe.</p>
-    </content>
+    <div class="lg:grid lg:grid-cols-[1fr_3fr_1fr] lg:grid-rows-1 absolute m-2 z-10 mt-16">
+        <toc class="block m-2">
+            <span class="mb-2 block">Cette documentation est disponible en: <a href="../../de/api/endpunkte.html" class="border-2 dark:border-gray-600 border-gray-200 rounded-lg p-1 mr-1">Deutsch</a> <a href="../../en/api/endpoints.html" class="border-2 dark:border-gray-600 border-gray-200 rounded-lg p-1">English</a></span>
+            <h1>Contenu</h1>
+            <summary class="font-circleBold marker:hidden">Points Finaux de l'API</summary>
+            <ul class="ml-4">
+                <li class="my-2"><a href="#overview">Apercu</a></li>
+                <li class="mb-2"><a href="#articles"><pre>/articles</pre></a></li>
+                <li class="mb-2"><a href="#articles:id"><pre>/articles/:id</pre></a></li>
+                <li class="mb-2"><a href="#config"><pre>/config</pre></a></li>
+                <li class="mt-2"><a href="#search"><pre>/search</pre></a></li>
+            </ul>
+        </toc>
+        <content class="w-auto">
+            <h1 class="text-3xl">Points Finaux de l'API</h1>
+            <h2 id="overview" class="text-2xl">Apercu</h2>
+            <p>L'API est accessible via <a href="https://api.xefili.dev/v1">api.xefili.dev</a>. Toutes les routes commencent par un / et les routes destructrices sont protégées par mot de passe.</p>
+            <space></space>
+            <h2 id="articles" class="text-2xl"><pre>/articles</pre></h2>
+            <p>Ce point de terminaison renvoie tous les articles sous forme de tableau JSON. La méthode POST permet aux administrateurs d'ajouter des articles. Si la méthode POST est utilisée, l'en-tête X-API-KEY doit être défini. Sinon, le code d'état HTTP 401 sera répondu.</p>
+            <p>Une réponse possible de l'API ressemble à ceci :</p>
+            <div id="b1" class="*:rounded-lg *:p-2"></div>
+            <space></space>
+            <h2 id="articles:id" class="text-2xl"><pre>/articles/:id</pre></h2>
+            <p>Ce point de terminaison affiche l'article avec l'ID spécifié en tant qu'élément de tableau JSON. Les articles peuvent également être mis à jour avec prudence car la structure n'est pas validée et le corps de la requête est défini sur l'ID de l'article. Par conséquent, la demande doit être structurellement correcte et autorisée avec le bon en-tête. Les administrateurs peuvent supprimer des éléments à l'aide de la méthode DELETE ; cela nécessite la définition de l'en-tête X-API-Key. Si elle n'est pas définie ou a des valeurs incorrectes, l'API renvoie le statut 401.</p>
+            <space></space>
+            <h2 id="config" class="text-2xl"><pre>/config</pre></h2>
+            <p>Ce point de terminaison affiche les informations actuelles sur l'API et la configuration ou les indicateurs de fonctionnalités pour les sites Web.</p>
+            <space></space>
+            <h2 id="search" class="text-2xl"><pre>/search?query="query"</pre></h2>
+            <p>Ce point de terminaison utilise la fonctionnalité de recherche intégrée pour rechercher les résultats du paramètre de requête. La recherche indexe les titres des articles. Un paramètre de limite facultatif peut également être transmis ; /search?query="query"&limit=INT. Le paramètre limit accepte tout entier positif. D'autres valeurs donnent un HTTP 500 car je ne gère pas les erreurs évitables.</p>
+            
+        </content>
+    </div>
 </body>
+<script type="module">
+import { codeToHtml } from 'https://esm.sh/shiki@1.18.0';
+
+let b1 = `[{
+        "title": "the title",
+        "content": "the article content",
+        "time": {
+            "year": 2025,
+            "month": "September",
+            "day": 24
+        },
+        "customLink": null,
+        "tags": [
+            "api",
+            "js",
+            "docs"
+        ]
+}]`
+document.getElementById("b1").innerHTML = await codeToHtml(b1, {lang: "json", theme: "material-theme"});
+</script>
 </html>

@@ -9,25 +9,74 @@
     <title>Documentation - API/Endpoints</title>
 </head>
 <body class="dark:bg-[#131313] dark:text-white font-circle">
-    <pageHead class="fixed z-50 block h-12 w-full shadow-md dark:text-white">
+    <pageHead class="fixed z-50 block h-12 w-full bg-inherit dark:text-white">
         <leftDivision class="h-12 inline-grid grid-cols-[1fr 1fr] gap-2 justify-center items-center">
             <logoText class="col-start-2">
                 <span class="font-circleBold font-black">Documentation</span>
             </logoText>
         </leftDivision>
         <navBar class="flex float-right h-12 items-center justify-evenly">
-            <a href="https://api.xefili.dev/v1/">
+            <a>
                 <home class="flex items-center font-circleBold mr-8 md:before:content-['Home⠀']"><span class="material-symbols-outlined">home</span></home>
             </a>
-            <a href="blog.html">
-                <blog class="flex items-center font-circleBold mr-8 md:before:content-['Report⠀Mistake⠀']"><span class="material-symbols-outlined">report</span></Blog>
+            <a>
+                <blog class="flex items-center font-circleBold mr-8 md:before:content-['Report_Mistake⠀']"><span class="material-symbols-outlined">report</span></Blog>
             </a>
         </navBar>
     </pageHead>
-    <content class="mt-16 absolute">
-        <h1>Endpoints</h1>
-        <h2>Overview</h2>
-        <p>The API is acessible at <a href="https://api.xefili.dev/v1">api.xefili.dev</a>. All routes start with a / and sensitive routes are password protected.</p>
-    </content>
+    <div class="lg:grid lg:grid-cols-[1fr_3fr_1fr] lg:grid-rows-1 absolute m-2 z-10 mt-16">
+        <toc class="block m-2">
+            <span class="mb-2 block">This documentation is available in: <a href="../../fr/api/points-finaux.html" class="border-2 dark:border-gray-600 border-gray-200 rounded-lg p-1 mr-1">Francais</a> <a href="../../de/api/endpunkte.html" class="border-2 dark:border-gray-600 border-gray-200 rounded-lg p-1">Deutsch</a></span>
+            <h1>Table of contents</h1>
+            <summary class="font-circleBold marker:hidden">Endpoints</summary>
+            <ul class="ml-4">
+                <li class="my-2"><a href="#overview">Overview</a></li>
+                <li class="mb-2"><a href="#articles"><pre>/articles</pre></a></li>
+                <li class="mb-2"><a href="#articles:id"><pre>/articles/:id</pre></a></li>
+                <li class="mb-2"><a href="#config"><pre>/config</pre></a></li>
+                <li class="mt-2"><a href="#search"><pre>/search</pre></a></li>
+            </ul>
+        </toc>
+        <content class="w-auto">
+            <h1 class="text-3xl">Endpoints</h1>
+            <h2 id="overview" class="text-2xl">Overview</h2>
+            <p>The API is acessible at <a href="https://api.xefili.dev/v1">api.xefili.dev</a>. All routes start with a / and sensitive routes are password protected.</p>
+            <space></space>
+            <h2 id="articles" class="text-2xl"><pre>/articles</pre></h2>
+            <p>This endpoint returns the entire article collection as a JSON array. Using the method POST, administrators can add additional articles the the array. When using post, the X-API-Key header should be passed with the correct password.</p>
+            <p>A possible response should look like this:</p>
+            <div id="b1" class="*:rounded-lg *:p-2"></div>
+            <space></space>
+            <h2 id="articles:id" class="text-2xl"><pre>/articles/:id</pre></h2>
+            <p>This endpoint displays the article with the specified id as a JSON array element. Articles may also be updated with caution since structure is not validated and the request body is set equal to the article's id. Therefore, the request must be structurally correct and needs to be authorized with the correct header. Administrators can delete articles with the DELETE method, this requires the X-API-Key header to be set. If unset or if it has incorrect values, the api will return with the status 401 Unauthorized.</p>
+            <space></space>
+            <h2 id="config" class="text-2xl"><pre>/config</pre></h2>
+            <p>This endpoint displays current information about the api and configuration or feature flags for the websites.</p>
+            <space></space>
+            <h2 id="search" class="text-2xl"><pre>/search?query="query"</pre></h2>
+            <p>This endpoint uses the built in search function to look up results from the query parameter. The search indexes the titles of the articles. An optional limit parameter can be passed aswell; /search?query="query"&limit=INT . The limit parameter accepts any positive integer. Other values will result in a HTTP 500 because I'm not handling errors which can be avoided.</p>
+        
+        </content>
+    </div>
 </body>
+<script type="module">
+import { codeToHtml } from 'https://esm.sh/shiki@1.18.0';
+
+let b1 = `[{
+        "title": "the title",
+        "content": "the article content",
+        "time": {
+            "year": 2025,
+            "month": "September",
+            "day": 24
+        },
+        "customLink": null,
+        "tags": [
+            "api",
+            "js",
+            "docs"
+        ]
+}]`
+document.getElementById("b1").innerHTML = await codeToHtml(b1, {lang: "json", theme: "material-theme"});
+</script>
 </html>

@@ -20,14 +20,63 @@
                 <home class="flex items-center font-circleBold mr-8 md:before:content-['Hauptseite⠀']"><span class="material-symbols-outlined">home</span></home>
             </a>
             <a>
-                <blog class="flex items-center font-circleBold mr-8 md:before:content-['Fehler⠀melden⠀']"><span class="material-symbols-outlined">report</span></Blog>
+                <blog class="flex items-center font-circleBold mr-8 md:before:content-['Fehler_melden⠀']"><span class="material-symbols-outlined">report</span></Blog>
             </a>
         </navBar>
     </pageHead>
-    <content class="mt-16 absolute">
-        <h1>Endpunkte</h1>
-        <h2>Übersicht</h2>
-        <p>Auf die API kann über <a href="https://api.xefili.dev/v1">api.xefili.dev</a>zugegriffen werden. Alle Routen starten mit einem /, sensitive oder destruktive Routen sind Passwort geschützt.</p>
-    </content>
+    <div class="lg:grid lg:grid-cols-[1fr_3fr_1fr] lg:grid-rows-1 absolute m-2 z-10 mt-16">
+        <toc class="block m-2">
+            <span class="mb-2 block">Diese documentation is verfügbar in: <a href="../../fr/api/points-finaux.html" class="border-2 dark:border-gray-600 border-gray-200 rounded-lg p-1 mr-1">Francais</a> <a href="../../en/api/endpoints.html" class="border-2 dark:border-gray-600 border-gray-200 rounded-lg p-1">English</a></span>
+            <h1>Inhalt</h1>
+            <summary class="font-circleBold marker:hidden">Endpunkte</summary>
+            <ul class="ml-4">
+                <li class="my-2"><a href="#overview">Übersicht</a></li>
+                <li class="mb-2"><a href="#articles"><pre>/articles</pre></a></li>
+                <li class="mb-2"><a href="#articles:id"><pre>/articles/:id</pre></a></li>
+                <li class="mb-2"><a href="#config"><pre>/config</pre></a></li>
+                <li class="mt-2"><a href="#search"><pre>/search</pre></a></li>
+            </ul>
+        </toc>
+        <content class="w-auto">
+            <h1 class="text-3xl">Endpunkte</h1>
+            <h2 id="overview" class="text-2xl">Übersicht</h2>
+            <p>Auf die API kann via <a href="https://api.xefili.dev/v1">api.xefili.dev</a> zugegriffen werden. Alle Routen starten mit einem / und destruktive Routen sind password-geschützt.</p>
+            <space></space>
+            <h2 id="articles" class="text-2xl"><pre>/articles</pre></h2>
+            <p>Dieser Endpunkt liefert jegliche Artikel als JSON Array. Mit der Methode POST können Administratoren Artikels hinzufügen. Wenn die Methode POST genutzt wird muss der X-API-KEY header gesetzt sein. Anderfalls wird der HTTP 401 Status Code geantwortet.</p>
+            <p>Eine mögliche Antwort der API sieht etwa so aus:</p>
+            <div id="b1" class="*:rounded-lg *:p-2"></div>
+            <space></space>
+            <h2 id="articles:id" class="text-2xl"><pre>/articles/:id</pre></h2>
+            <p>Dieser Endpunkt zeigt den Artikel mit der angegebenen ID als JSON-Array-Element an. Artikel können auch mit Vorsicht aktualisiert werden, da die Struktur nicht validiert wird und der Anforderungstext auf die ID des Artikels gesetzt wird. Daher muss die Anfrage strukturell korrekt sein und mit dem richtigen Header autorisiert werden. Administratoren können Artikel mit der DELETE-Methode löschen, hierfür muss der X-API-Key-Header gesetzt sein. Wenn es nicht gesetzt ist oder falsche Werte hat, gibt die API den Status 401 zurück.</p>
+            <space></space>
+            <h2 id="config" class="text-2xl"><pre>/config</pre></h2>
+            <p>Dieser Endpunkt zeigt aktuelle Informationen zur API und Konfiguration oder Feature-Flags für die Websites an.</p>
+            <space></space>
+            <h2 id="search" class="text-2xl"><pre>/search?query="query"</pre></h2>
+            <p>Dieser Endpunkt verwendet die integrierte Suchfunktion, um Ergebnisse aus dem Abfrageparameter zu suchen. Die Suche indiziert die Titel der Artikel. Es kann auch ein optionaler Grenzwertparameter übergeben werden; /search?query="query"&limit=INT. Der Grenzwertparameter akzeptiert jede positive Ganzzahl. Andere Werte führen zu einem HTTP 500, da ich keine vermeidbaren Fehler behandle.</p>
+            
+        </content>
+    </div>
 </body>
+<script type="module">
+import { codeToHtml } from 'https://esm.sh/shiki@1.18.0';
+
+let b1 = `[{
+        "title": "the title",
+        "content": "the article content",
+        "time": {
+            "year": 2025,
+            "month": "September",
+            "day": 24
+        },
+        "customLink": null,
+        "tags": [
+            "api",
+            "js",
+            "docs"
+        ]
+}]`
+document.getElementById("b1").innerHTML = await codeToHtml(b1, {lang: "json", theme: "material-theme"});
+</script>
 </html>
