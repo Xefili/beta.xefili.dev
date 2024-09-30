@@ -35,6 +35,20 @@
         <p class="mx-2 text-3xl text-gray-600">Find infos on everything, in 3 languages.</p>
 
         <div class="mt-12 w-full flex flex-col items-center">
+            <div class="flex flex-row gap-4 mb-4">
+                <div>
+                    <label for="eng">English</label>
+                    <input type="radio" name="langselect" id="eng" checked>
+                </div>
+                <div>
+                    <label for="deu">Deutsch</label>
+                    <input type="radio" name="langselect" id="deu">
+                </div>
+                <div>
+                    <label for="fra">Francais</label>
+                    <input type="radio" name="langselect" id="fra">
+                </div>
+            </div>
             <input class="lg:w-1/2 w-72 mx-4 p-4 rounded-2xl dark:bg-[#1e1f20]" placeholder="search..." type="search" name="search" id="search">
             <ul id="res" class="mt-8 mb-24 flex-col flex gap-2">
             </ul>
@@ -63,18 +77,32 @@ let data = [
     {
         "title": "Endpoints",
         "parent": "API",
-        "link": "/en/api/endpoints.html"
+        "link": "api/endpoints.html"
     },
     {
         "title": "Building Tailwind",
         "parent": "Building",
-        "link": "/en/building/build.html"
+        "link": "building/build.html"
     }
 ]
 
 import Fuse from 'https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.mjs';
 
 const fuse = new Fuse(data, {keys:["title", "parent"]});
+
+function getLang() {
+    if(document.getElementById("eng").checked) {
+        return "en";
+    }
+    if(document.getElementById("deu").checked) {
+        return "de";
+    }
+    if(document.getElementById("fra").checked) {
+        return "fr";
+    }
+}
+
+
 
 search.addEventListener("input", () => {
     let fuzzy = fuse.search(search.value, {limit: 2});
@@ -93,10 +121,10 @@ search.addEventListener("input", () => {
         } catch(e) {
             console.info("Removed all children...");
         }
-        a.setAttribute("href", fuzzy[0].item.link);
+        a.setAttribute("href", `/${getLang()}/${fuzzy[0].item.link}`);
         a.innerHTML = `${fuzzy[0].item.title} - ${fuzzy[0].item.parent}`;
         res.appendChild(a);
-        a2.setAttribute("href", fuzzy[1].item.link);
+        a2.setAttribute("href", `/${getLang()}/${fuzzy[1].item.link}`);
         a2.innerHTML = `${fuzzy[1].item.title} - ${fuzzy[1].item.parent}`;
         res.appendChild(a2);
     } else {
@@ -107,7 +135,7 @@ search.addEventListener("input", () => {
         } catch(e) {
             console.info("Removed all children...");
         }
-        a.setAttribute("href", fuzzy[0].item.link);
+        a.setAttribute("href", `/${getLang()}/${fuzzy[0].item.link}`);
         a.innerHTML = `${fuzzy[0].item.title} - ${fuzzy[0].item.parent}`;
         res.appendChild(a);
     }
