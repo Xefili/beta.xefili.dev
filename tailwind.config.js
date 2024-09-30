@@ -9,7 +9,18 @@ module.exports = {
       'circleBold': ['Plus Jakarta Sans Extrabold', 'sans-serif'],
       'mono': ['Cascadia Code', "Ubuntu Mono", "monospace"]
     },
-    extend: {},
+    extend: {
+      colors: {
+        light: {
+          50: "#e5e7eb",
+          100: "#d1d5db" //hover
+        },
+        darker: {
+          50: "#1e1f20",
+          100: "#333333" //hover
+        }
+      }
+    },
   },
   plugins: [
     autoprefixer
