@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&family=Roboto+Flex:opsz,wdth,wght@8..144,112.5,400;8..144,112.5,700;8..144,112.5,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/app.css">
     <title>Documentation - Home</title>
 </head>
-<body class="dark:bg-[#131313] dark:text-white font-circle">
+<body class="dark:bg-[#131313] dark:text-white font-circle h-full">
     <pageHead class="fixed z-50 block h-12 w-full shadow-md dark:text-white">
         <leftDivision class="h-12 inline-grid grid-cols-[1fr 1fr] gap-2 justify-center items-center">
             <logoText class="col-start-2">
@@ -19,18 +19,32 @@
             <a href="https://api.xefili.dev/v1/">
                 <home class="flex items-center font-circleBold mr-8 md:before:content-['API⠀']"><span class="material-symbols-outlined">api</span></home>
             </a>
-            <a href="blog.html">
+            <a href="https://xefili.dev/blog.html">
                 <blog class="flex items-center font-circleBold mr-8 md:before:content-['Blog⠀']"><span class="material-symbols-outlined">chat</span></Blog>
             </a>
             <a href="https://xefili.dev/">
                 <docs class="flex items-center font-circleBold mr-8 md:before:content-['Home⠀']"><span class="material-symbols-outlined">home</span></Docs>
             </a>
-            <a href="tools.html">
+            <a href="https://xefili.dev/tools/index.html">
                 <tools class="flex items-center font-circleBold mr-8 md:before:content-['Tools⠀']"><span class="material-symbols-outlined">construction</span></search>
             </a>
         </navBar>
     </pageHead>
+    <div class="flex flex-col lg:flex-row items-center gap-4 bg-red-500/70 text-black py-1 px-2 m-2 rounded-lg fixed bottom-0 right-0 z-50" onclick="openPP()" id="container">
+        <e class="material-symbols-outlined text-red-300 text-4xl">policy_alert</e>
+        <div class="flex-col hidden" id="privacyPolicy">
+            <h1>Privacy Notice</h1>
+            <p>This, and other pages fetch fonts and icons from Google Fonts. By using the page, you agree to sharing general information, like device ids and your public IP address with Google. I personally collect analytic data, where your data is never shared with any third party and is protected by Cloudflare. This page may store cookies for technical purposes (Cloudflare DDoS protection, remembering user choice - coming soon).</p>
+        </div>
+    </div>
     <content class="grid grid-cols-1 justify-items-center w-full absolute mt-16">
+        <div class="flex flex-col lg:flex-row items-center gap-4 bg-yellow-500/70 text-black p-2 m-2 rounded-lg">
+            <e class="material-symbols-outlined text-yellow-300 text-6xl">construction</e>
+            <div class="flex flex-col">
+                <h1>Under construction...</h1>
+                <p>This repo is under heavy development and isn't quite production ready. It's design, content and structure, aswell functionality may change without notice and layout and design may be inconsistent. There is no guarantee for the correctness of the information provided! ~Xefili</p>
+            </div>
+        </div>
         <h1 class="mx-2 text-3xl bg-clip-text bg-gradient-to-br from-emerald-500 to-cyan-600 text-transparent text-left">Welcome to the new documentation!</h1>
         <p class="mx-2 text-3xl text-gray-600">Find infos on everything, in 3 languages.</p>
 
@@ -55,19 +69,30 @@
         </div>
         
         <div class="flex lg:flex-row flex-col justify-evenly">
-            <card class="relative">
-                <h1>API</h1>
-                <p>API documentation and usage examples.</p>
-                <e class="text-3xl material-symbols-outlined bg-white dark:text-white dark:bg-[#131313] rounded-full px-3 py-2 w-fit absolute bottom-0 right-0 m-4">api</e>
-            </card>
-            <card class="relative">
-                <h1>Building</h1>
-                <p>How to build TailwindCSS for production or development use.</p>
-                <e class="text-3xl material-symbols-outlined bg-white dark:text-white dark:bg-[#131313] rounded-full px-3 py-2 w-fit absolute bottom-0 right-0 m-4">window ios dns</e>
-            </card>
+            <a href="/en/api/endpoints.html">
+                <card class="relative">
+                    <h1>API</h1>
+                    <p>API documentation and usage examples.</p>
+                    <e class="text-3xl material-symbols-outlined bg-white dark:text-white dark:bg-[#131313] rounded-full px-3 py-2 w-fit absolute bottom-0 right-0 m-4">api</e>
+                </card>
+            </a>
+            <a href="/en/building/build.html">
+                <card class="relative">
+                    <h1>Building</h1>
+                    <p>How to build TailwindCSS for production or development use.</p>
+                    <e class="text-3xl material-symbols-outlined bg-white dark:text-white dark:bg-[#131313] rounded-full px-3 py-2 w-fit absolute bottom-0 right-0 m-4">window ios dns</e>
+                </card>
+            </a>
         </div>
     </content>
 </body>
+<script>
+function openPP() {
+    document.getElementById("privacyPolicy").classList.toggle("hidden");
+    document.getElementById("container").classList.toggle("bg-red-500/70");
+    document.getElementById("container").classList.toggle("bg-red-500");
+}
+</script>
 <script type="module">
 let search = document.getElementById("search");
 let res = document.getElementById("res");
