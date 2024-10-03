@@ -14,7 +14,9 @@ async function report() {
         method: "POST",
         body: JSON.stringify(str)
     }
-    await fetch("https://api.xefili.dev/r", options)
+    await fetch("https://api.xefili.dev/r", options);
+    alert("Submitted report!");
+    window.location.reload();
 }
 
 document.getElementById("reportform").addEventListener("submit", (event) => {
