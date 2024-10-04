@@ -83,6 +83,13 @@
                     <e class="text-3xl material-symbols-outlined bg-white dark:text-white dark:bg-[#131313] rounded-full px-3 py-2 w-fit absolute bottom-0 right-0 m-4">window ios dns</e>
                 </card>
             </a>
+            <a href="/en/opensource/contribute.html">
+                <card class="relative">
+                    <h1>Contributing</h1>
+                    <p>How to contribute and report mistakes and issues.</p>
+                    <e class="text-3xl material-symbols-outlined bg-white dark:text-white dark:bg-[#131313] rounded-full px-3 py-2 w-fit absolute bottom-0 right-0 m-4">crowdsource</e>
+                </card>
+            </a>
         </div>
     </content>
 </body>
@@ -102,17 +109,20 @@ let data = [
     {
         "title": "Endpoints",
         "parent": "API",
-        "link": "api/endpoints.html"
+        "link": "api/endpoints.html",
+        "langs": ["en", "de", "fr"]
     },
     {
         "title": "Building Tailwind",
         "parent": "Building",
-        "link": "building/build.html"
+        "link": "building/build.html",
+        "langs": ["en", "de"]
     },
     {
         "title": "Contribute",
         "parent": "Open Source",
-        "link": "opensource/contribute.html"
+        "link": "opensource/contribute.html",
+        "langs": ["en", "de"]
     }
 ]
 
@@ -151,12 +161,16 @@ search.addEventListener("input", () => {
         } catch(e) {
             console.info("Removed all children...");
         }
-        a.setAttribute("href", `/${getLang()}/${fuzzy[0].item.link}`);
-        a.innerHTML = `${fuzzy[0].item.title} - ${fuzzy[0].item.parent}`;
-        res.appendChild(a);
-        a2.setAttribute("href", `/${getLang()}/${fuzzy[1].item.link}`);
-        a2.innerHTML = `${fuzzy[1].item.title} - ${fuzzy[1].item.parent}`;
-        res.appendChild(a2);
+        if(fuzzy[0].item.langs.includes(getLang())) {
+            a.setAttribute("href", `/${getLang()}/${fuzzy[0].item.link}`);
+            a.innerHTML = `${fuzzy[0].item.title} - ${fuzzy[0].item.parent}`;
+            res.appendChild(a);
+        }
+        if(fuzzy[1].item.langs.includes(getLang())) {
+            a2.setAttribute("href", `/${getLang()}/${fuzzy[1].item.link}`);
+            a2.innerHTML = `${fuzzy[1].item.title} - ${fuzzy[1].item.parent}`;
+            res.appendChild(a2);
+        }
     } else {
         try {
             while (res.firstChild) {
@@ -165,9 +179,11 @@ search.addEventListener("input", () => {
         } catch(e) {
             console.info("Removed all children...");
         }
-        a.setAttribute("href", `/${getLang()}/${fuzzy[0].item.link}`);
-        a.innerHTML = `${fuzzy[0].item.title} - ${fuzzy[0].item.parent}`;
-        res.appendChild(a);
+        if(fuzzy[0].item.langs.includes(getLang())) {
+            a.setAttribute("href", `/${getLang()}/${fuzzy[0].item.link}`);
+            a.innerHTML = `${fuzzy[0].item.title} - ${fuzzy[0].item.parent}`;
+            res.appendChild(a);
+        }
     }
 });
 </script>
