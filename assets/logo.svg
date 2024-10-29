@@ -1,0 +1,15 @@
+<svg width="414" height="190" viewBox="0 0 190 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M176.009 10L74.8197 145.358" stroke-width="20" stroke-linecap="round"/>
+<path d="M57 10.0125L174 179.012" stroke-width="20" stroke-linecap="round"/>
+<path d="M78.0316 141.121C39.4144 194.721 -8.26768 141.068 28.1663 101.662" stroke-width="20" stroke-linecap="round"/>
+<style>
+    path {
+        stroke: black;
+    }
+    @media (prefers-color-scheme: dark) {
+        path {
+            stroke: white;
+        }   
+    }
+</style>
+</svg>

@@ -5,7 +5,15 @@
 @layer base {
     @font-face {
         font-family: "Cascadia Code";
-        src: url('CascadiaCode.ttf') format('.ttf');
+        src: url('../styles/CascadiaCode.ttf') format(truetype);
+    }
+    @font-face {
+        font-family: "Plus Jakarta Sans";
+        src: url("../assets/PlusJakartaSans-Regular.ttf")format(truetype);
+    }
+    @font-face {
+        font-family: "Plus Jakarta Sans Extrabold";
+        src: url("../assets/PlusJakartaSans-ExtraBold.ttf")format(truetype);
     }
     h1, h2, h3 {
         @apply font-circleBold;
