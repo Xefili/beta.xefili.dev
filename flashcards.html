@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&family=Roboto+Flex:opsz,wdth,wght@8..144,112.5,400;8..144,112.5,700;8..144,112.5,900&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="styles/app.css" />
+		<!-- Change this title -->
+		<title>Flashcard Trainer</title>
+	</head>
+	<body class="dark:bg-[#131313] dark:text-white font-circle">
+		<pageHead class="fixed z-50 block h-12 w-full bg-inherit dark:text-white">
+			<leftDivision class="h-12 inline-grid grid-cols-[1fr 1fr] gap-2 justify-center items-center">
+				<logoText class="col-start-2">
+					<span class="font-circleBold font-black">Practice<br> > Flashcards</span>
+				</logoText>
+			</leftDivision>
+
+			<!-- Adjust links if needed -->
+
+			<navBar class="flex float-right h-12 items-center justify-evenly">
+				<a href="index.html">
+					<home class="flex items-center font-circleBold mr-8 md:before:content-['Home_']"><span class="material-symbols-outlined">home</span></home>
+				</a>
+				<a href="report.html">
+					<blog class="flex items-center font-circleBold mr-8 md:before:content-['Report_Mistake_']"><span class="material-symbols-outlined">report</span></blog>
+				</a>
+			</navBar>
+		</pageHead>
+		<div class="flex w-full justify-center absolute z-10 mt-16">
+			<content class="flex flex-col items-center">
+				<div class="w-72">
+					<h1>Term</h1>
+					<input class="dark:text-white dark:bg-darker-50 bg-light-50 p-2 rounded-lg my-2 w-full" type="text" name="" id="termInput">
+					<h1>Definition</h1>
+					<input class="dark:text-white dark:bg-darker-50 bg-light-50 p-2 rounded-lg my-2 w-full" type="text" name="" id="defInput">
+					<div class="flex justify-end">
+						<button onclick="add()" class="dark:bg-darker-50 dark:hover:bg-darker-100 bg-light-50 hover:bg-light-100 p-2 rounded-lg block">Add</button>
+					</div>
+
+					<box></box>
+				</div>
+				<!-- Flashcard -->
+				<div class="hidden">
+					<button onclick="start()" id="start" class="dark:bg-darker-50 dark:hover:bg-darker-100 bg-light-50 hover:bg-light-100 p-2 rounded-lg">Start</button>
+					<flashcard onclick="flip()" class="hidden w-96 h-96 bg-darker-50 justify-center items-center rounded-3xl">
+						<h1 class="term text-center block"></h1>
+						<p id="definition" class="hidden"></p>
+					</flashcard>
+					<div>
+						<button onclick="btn(false)" id="learn" class="material-symbols-outlined bg-clip-text text-transparent bg-red-500 p-2 hover:border-darker-100 border-2 border-transparent rounded-lg mr-8">close</button>
+						<button onclick="btn(true)" id="know" class="material-symbols-outlined bg-clip-text text-transparent bg-green-500 p-2 hover:border-darker-100 border-2 border-transparent rounded-lg">check</button>
+					</div>	
+				</div>
+			</content>
+		</div>
+	</body>
+	<script>
+		function add() {
+			let prefab = `{"t": "${document.getElementById("termInput").value}", "def": "${document.getElementById("defInput").value}", "index": "${unknown.length}"}`
+			unknown.push(JSON.parse(prefab));
+			console.log(unknown);
+			try {
+            while (document.getElementsByTagName("box")[0].firstChild) {
+                document.getElementsByTagName("box")[0].removeChild(document.getElementsByTagName("box")[0].firstChild);
+            }
+        	} catch(e) {
+        	    console.info("Removed all children...");
+        	}
+			for(let i = 0; i!=unknown.length; i++) {
+				let div = document.createElement("div");
+				let h2 = document.createElement("h2");
+				let span = document.createElement("span");
+				h2.innerHTML = unknown[i].t;
+				span.innerHTML = unknown[i].def;
+				div.appendChild(h2);
+				div.appendChild(span);
+				document.getElementsByTagName("box")[0].appendChild(div);
+			}
+		}
+	</script>
+    <script>
+        let term = document.getElementsByClassName("term")[0];
+        let def = document.getElementById("definition");
+
+		let keyframes = [
+			{transform: "rotateX(180deg)"}
+		]
+
+
+		//#region Flashcard
+		let clicked = false;
+
+		let unknown = [
+			{
+				"t": "to stride",
+				"def": "schreiten",
+				"index": "0"
+			},
+			{
+				"t": "water",
+				"def": "Wasser",
+				"index": "1"
+			}
+		];
+
+		let known = []
+		let stack = 0;
+
+		function start() {
+			term.innerHTML = unknown[0].t;
+			def.innerHTML = unknown[0].def;
+			term.id = unknown[0].index;
+			document.getElementsByTagName("flashcard")[0].classList.add("flex");
+			document.getElementsByTagName("flashcard")[0].classList.remove("hidden");
+			document.getElementById("start").classList.add("hidden");
+			stack++;
+		}
+
+		function btn(know) {
+			if(know) {
+				known.push(term.id);
+				nextCard();
+			} else {
+				nextCard();
+			}
+		}
+
+		function nextRound() {
+			if(known.includes(unknown[stack].index)) {
+				stack++;
+			} else {
+				// flip back to term
+				if(clicked) flip()
+				// fill new vocabulary and definitions
+				term.innerHTML = unknown[stack].t;
+				def.innerHTML = unknown[stack].def;
+				term.id = unknown[stack].index;
+				stack++;
+				checkIfDone();
+			}
+		}
+
+		function checkIfDone() {
+			if(stack==unknown.length) {
+				if(known.length == unknown.length) {
+					alert("Done");
+				}
+				if(known.length<unknown.length) {
+					alert("Next Round!");
+					stack = 0;
+					nextRound();
+				}
+			}
+		}
+
+		function nextCard() {
+			if(stack==unknown.length) {
+				checkIfDone();
+			}
+			if(clicked) flip()
+			term.innerHTML = unknown[stack].t;
+			def.innerHTML = unknown[stack].def;
+			term.id = unknown[stack].index;
+			stack++;
+			
+		}
+
+		function flip() {
+			if(clicked) {
+				def.classList.toggle("hidden");
+				document.getElementsByTagName("flashcard")[0].animate(keyframes, 200);
+				setTimeout(()=>{term.classList.toggle("hidden");}, 200);
+				clicked = false;
+			} else {
+				clicked = true;
+				term.classList.toggle("hidden");
+				document.getElementsByTagName("flashcard")[0].animate(keyframes, 200);
+				setTimeout(()=>{def.classList.toggle("hidden");}, 200);
+			}
+		}
+		//#endregion
+    </script>
+</html>
