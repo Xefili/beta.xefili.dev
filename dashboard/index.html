@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&family=Roboto+Flex:opsz,wdth,wght@8..144,112.5,400;8..144,112.5,700;8..144,112.5,900&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="../styles/app.css" />
+		<link rel="stylesheet" href="extra.css">
+		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+		<!-- Change this title -->
+		<title>Dashboard</title>
+	</head>
+	<body class="dark:bg-[#131313] dark:text-white font-circle w-full">
+		<pageHead class="fixed z-50 block h-12 w-full bg-inherit dark:text-white">
+			<leftDivision class="h-12 inline-grid grid-cols-[1fr 1fr] gap-2 justify-center items-center">
+				<logoText class="col-start-2">
+					<span class="font-circleBold font-black">API Dashboard</span>
+				</logoText>
+			</leftDivision>
+
+			<!-- Adjust links if needed -->
+
+			<navBar class="flex float-right h-12 items-center justify-evenly">
+				<a href="../index.html">
+					<home class="flex items-center font-circleBold mr-8 md:before:content-['Home_']"><span class="material-symbols-outlined">home</span></home>
+				</a>
+				<a href="" onclick="alert('Not implemented yet..')">
+					<blog class="flex items-center font-circleBold mr-8 md:before:content-['Log_out_']"><span class="material-symbols-outlined">logout</span></blog>
+				</a>
+			</navBar>
+		</pageHead>
+		<content class="w-full mt-16 absolute">
+			<disclaimer class="lg:hidden text-5xl font-circleBold w-full text-center block">Please view this page on a desktop device!</disclaimer>
+			<!-- Sign in window -->
+			<div id="singin" class="flex w-full justify-center hidden">
+				<div class="bg-light-50 dark:bg-darker-50 w-1/5 h-96 rounded-xl border-light-100 dark:border-darker-100 border-2 drop-shadow-xl shadow-black">
+					<div class="bg-red-500/70 absolute w-full rounded-t-xl h-8 text-center">
+						<p><strong>You need to log in first to view this page!</strong></p>
+					</div>
+					<div class="p-4">
+						<h1 class="mt-8">Log in</h1>
+						<p><em>Logging in as Henry.</em></p>
+						<input id="passwd" type="password" placeholder="password" class="bg-light-100 dark:bg-darker-100 rounded-lg p-2 mt-2">
+						<button onclick="signin()" class="bg-light-100 dark:bg-darker-100 rounded-lg p-2 absolute bottom-8 w-32 right-8">Log in</button>
+						<alert class="hidden bg-red-500/50 border-2 border-red-500 p-2 w-full block my-8 rounded-lg">Wrong password, try again</alert>
+					</div>
+				</div>
+			</div>
+			<!-- End Sign in window -->
+
+			<!-- Protected content -->
+			<div id="main" class="w-full ">
+				<h1 class="text-2xl">Welcome <em>Henry</em>!</h1>
+				<p>View current API statistics and modify database. Remember to keep the API Key secure when authenticating POST and DELETE requests!</p>
+				<!-- Subwindow 1 -->
+				<div class="flex flex-row gap-4 ml-4">
+					<div class="bg-light-50 dark:bg-darker-50 w-1/2 rounded-xl border-light-100 dark:border-darker-100 border-2 drop-shadow-xl shadow-black p-2">
+						<h2>Current System Information</h2>
+						<div class="flex gap-2">
+							<box class="border-2" id="load"></box>
+							<box class="border-2" id="uptime"></box>
+							<box class="border-2" id="platform"></box>
+							<box class="border-2" id="arch"></box>
+							<box class="border-2" id="freemem"></box>
+						</div>
+						<div class="flex flex-row w-full gap-8 mt-8">
+							<div class="w-1/2">
+								<div id="graph"></div>
+							</div>
+							<div class="w-1/2">
+								<div id="graph2"></div>
+							</div>
+						</div>
+					</div>
+					<div class="bg-light-50 dark:bg-darker-50 w-1/4 rounded-xl border-light-100 dark:border-darker-100 border-2 drop-shadow-xl shadow-black p-2">
+						<h2>Modify database</h2>
+						<div class="flex flex-row w-full gap-8">
+							<div>
+								<h3>Choose method</h3>
+								<form action="" class="flex flex-col gap-8 mt-4">
+									<div>
+										<label class="bg-yellow-500/50 border-yellow-500 border-2 p-2 rounded-lg" for="r1">POST</label>
+										<input type="radio" name="methodselect" id="post">
+									</div>
+									<div>
+										<label class="bg-red-500/50 border-red-500 border-2 p-2 rounded-lg" for="r2">DELETE</label>
+										<input type="radio" name="methodselect" id="delete">
+									</div>
+								</form>
+							</div>
+							<div class="flex flex-col">
+								<h3>Ressource address</h3>
+								<input class="w-full my-2 dark:text-white dark:bg-darker-50 bg-light-50 p-2 rounded-lg" type="url" name="" id="link" placeholder="Insert API endpoint URL...">
+								<h3>Request content for POST requests</h3>
+								<textarea class="w-full my-2 dark:text-white dark:bg-darker-50 bg-light-50 p-2 rounded-lg" name="" id="con" placeholder="Insert valid JSON here..."></textarea>
+								<h3>Key</h3>
+								<input class="w-full my-2 dark:text-white dark:bg-darker-50 bg-light-50 p-2 rounded-lg" type="password" name="" id="keystore" placeholder="API key">
+								<button onclick="requestBuilder()" id="submitreq" class="dark:hover:bg-darker-100 dark:bg-darker-50 bg-light-50 hover:bg-light-100 p-2 rounded-lg">Submit request</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="bg-light-50 dark:bg-darker-50 w-1/4 rounded-xl border-light-100 dark:border-darker-100 border-2 drop-shadow-xl shadow-black p-2">
+					<h2>Post new article</h2>
+					<input class="w-full my-2 dark:text-white dark:bg-darker-50 bg-light-50 p-2 rounded-lg" type="text" name="" id="titleForm" placeholder="Title">
+					<input class="w-full my-2 dark:text-white dark:bg-darker-50 bg-light-50 p-2 rounded-lg" type="text" name="" id="contentForm" placeholder="Text, HTML supported">
+					<input class="w-full my-2 dark:text-white dark:bg-darker-50 bg-light-50 p-2 rounded-lg" type="text" name="" id="tagForm" placeholder="Tags, comma separated">
+					<span id="date"></span>
+					<button type="submit" onclick="createJSON()">Submit</button>
+				</div>
+				<!-- End Subwindow 1 -->
+				<div>
+					<h2>Current API database (in JSON)</h2>
+					<div id="b1"></div>
+					<div id="b2"></div>
+					<div id="b3"></div>
+				</div>
+			</div>
+			<!-- End Protected Content -->
+		</content>
+	</body>
+	<script type="module">
+		let titleForm = document.getElementById("titleForm");
+		let contentForm = document.getElementById("contentForm");
+		let tagForm = document.getElementById("tagForm");
+		let date = document.getElementById("date");
+
+		async function createJSON() {
+			let tags = `"${tagForm.value}"`;
+			let tags2 = tags.replace(" ", "");
+			let tags3 = tags2.split(",");
+			let data = `{
+				"title": "${titleForm.value}",
+				"content": "${contentForm.value}",
+				"tags": ${tags3},
+				"time": {
+					"year": "${new Date().getFullYear()}",
+					"month": "${new Date().getMonth()}",
+					"day": "${new Date().getDay()}"
+				}
+			}`
+
+			let opt = `{
+				"method": "POST",
+				"mode": "cors",
+				"headers": {
+					"X-API-Key": ""
+				},
+				"body": ${JSON.stringify(data)}
+			}`;
+			let options = JSON.parse(opt);
+
+			await fetch("https://api.xefili.dev/articles", options);
+		}
+
+		window.createJSON = createJSON;
+	</script>
+	<script type="module">
+		import { codeToHtml } from "https://esm.sh/shiki@1.18.0";
+		let raw = await fetch("https://api.xefili.dev/config", {"method": "GET"});
+		let parsed = await raw.json();
+		let b1 = JSON.stringify(parsed);
+		document.getElementById("b1").innerHTML = await codeToHtml(b1, { lang: "json", theme: "material-theme" });
+	</script>
+	<script type="module">
+		let win = document.getElementById("singin");
+
+		async function signin() {
+			try {
+			let rawOptions = `{
+				"method": "POST",
+				"mode": "cors",
+				"headers": {
+					"X-Pass": "${document.getElementById("passwd").value}"
+				}
+			}`
+			let options = JSON.parse(rawOptions);
+
+			let response = await fetch("https://api.xefili.dev/login", options);
+			if(response.status == 200) {
+				win.classList.toggle("hidden");
+				try{document.getElementsByTagName("alert")[0].classList.add("hidden");}catch(e){}
+				document.getElementById("main").classList.toggle("hidden");
+				startup();
+			} else {
+				document.getElementsByTagName("alert")[0].classList.toggle("hidden");
+			}
+			} catch(e) {
+				alert(`Wrong password! The following error was produced: ${e}`);
+			}
+		}
+
+		window.signin = signin
+	</script>
+	<script type="module">
+		let r1 = document.getElementById("post");
+		let r2 = document.getElementById("delete");
+		let link = document.getElementById("link");
+		let conBox = document.getElementById("con");
+
+		function getRadioButton() {
+			if(r1.checked) {
+				return "POST"
+			}
+			if(r2.checked) {
+				return "DELETE"
+			}
+		}
+
+		async function requestBuilder() {
+			let l = link.value;
+
+			let rawOptions = `{
+			"method": "${getRadioButton()}",
+			"mode": "cors",
+				"headers": {
+					"content-type": "application/json",
+					"X-API-Key": "9b2514143fc12479429cbfecf6e21881c804d74fec86c75117b5d7b892e1bce8"
+				},
+				"body": ${JSON.stringify(conBox.value)}
+			}`;
+			console.log(rawOptions);
+			let options = JSON.parse(rawOptions);
+			console.log(options);
+			await fetch(`https://api.xefili.dev${link.value}`, options);
+		}
+		window.requestBuilder = requestBuilder
+	</script>
+	<script type="module">
+		let trace = {"x":[],"y":[],"fill":"tozeroy"}
+		let trace2 = {"x":[],"y":[],"fill":"tozeroy"}
+		var layout1 = {
+					"type": "scattergl",
+					"title": "Free Memory [in MB]",
+					"paper_bgcolor": "rgba(0,0,0,0)",
+					"plot_bgcolor": "rgba(0,0,0,0)",
+					"font": {
+						"color": "#FFFFFF"
+					},
+					"margin": {
+						"b": 50,
+						"l": 50,
+						"r": 50,
+						"t": 50
+					}
+				}
+			var layout2 = {
+				"title": "Current Load [in %, floats]",
+				"paper_bgcolor": "rgba(0,0,0,0)",
+				"plot_bgcolor": "rgba(0,0,0,0)",
+				"font": {
+					"color": "#FFFFFF"
+				},
+				"margin": {
+					"b": 50,
+					"l": 50,
+					"r": 50,
+					"t": 50
+				}
+			}
+
+		async function startup() {
+			let res = await fetch("http://api.xefili.dev/dashboard/sys", {"mode":"cors","method":"GET"});
+			let prefetch = await res.json();
+			console.log(prefetch);
+
+			document.getElementById("load").innerHTML = `Load: ${prefetch.load[2]*100}%`;
+			document.getElementById("uptime").innerHTML = `Uptime: ${prefetch.uptime}s`;
+			document.getElementById("platform").innerHTML = `Platform: ${prefetch.platform}`;
+			document.getElementById("arch").innerHTML = `Archicture: ${prefetch.arch}`;
+			document.getElementById("freemem").innerHTML = `Free memory: ${Math.round(prefetch.freemem/1000/1000)}MB`;
+			count++
+			trace.x.push(count);
+			trace.y.push(Math.round(prefetch.freemem/1000/1000));
+			trace2.x.push(count);
+			trace2.y.push(prefetch.load[2]);
+			let data = [trace];
+			let data2 = [trace2];
+			Plotly.newPlot(document.getElementById("graph"), data, layout1, {"staticPlot": true});
+
+			Plotly.newPlot(document.getElementById("graph2"), data2, layout2, {"staticPlot":true});
+			refresh();
+		}
+		window.startup = startup;
+
+
+		let thresholds = {
+			"load": {
+				"low": 0.2,
+				"med": 0.8,
+				//higher loads will be 0.8 and up
+			},
+			"freemem": {
+				"low": 3000,
+				"med": 2000,
+				//anything below 2GB free memory is considered high memory usage
+			}
+		}
+
+		let count = 0;
+		let prefetch;
+
+		function colorize() {
+			document.getElementById("freemem").classList.remove("green");
+			document.getElementById("freemem").classList.remove("yellow");
+			document.getElementById("freemem").classList.remove("red");
+			
+			document.getElementById("load").classList.remove("green");
+			document.getElementById("load").classList.remove("yellow");
+			document.getElementById("load").classList.remove("red");
+			
+			if(prefetch.load[2] <= thresholds.load.low) {
+				document.getElementById("load").classList.add("green");
+			}
+			if(prefetch.load[2] <= thresholds.load.med && prefetch.load[2] > thresholds.load.low) {
+				document.getElementById("load").classList.add("yellow");
+			}
+			if(prefetch.load[2] > thresholds.load.med) {
+				document.getElementById("load").classList.add("red");
+			}
+
+			if(Math.round(prefetch.freemem/1000/1000) >= thresholds.freemem.low) {
+				document.getElementById("freemem").classList.add("green");
+
+			}
+			if(Math.round(prefetch.freemem/1000/1000) < thresholds.freemem.low) {
+				document.getElementById("freemem").classList.add("yellow");
+			}
+			if(Math.round(prefetch.freemem/1000/1000) < thresholds.freemem.med) {
+				document.getElementById("freemem").classList.add("red");
+			}
+		}
+		async function refresh() {
+			setTimeout(async() => {
+				//refetch new data
+				let res = await fetch("http://api.xefili.dev/dashboard/sys", {"mode":"cors","method":"GET"});
+				//parse to JSON
+				prefetch = await res.json();
+				//apply to document
+				document.getElementById("load").innerHTML = `Load: ${prefetch.load[2]*100}%`;
+				document.getElementById("uptime").innerHTML = `Uptime: ${prefetch.uptime}s`;
+				document.getElementById("platform").innerHTML = `Platform: ${prefetch.platform}`;
+				document.getElementById("arch").innerHTML = `Architecture: ${prefetch.arch}`;
+				document.getElementById("freemem").innerHTML = `Free Memory: ${Math.round(prefetch.freemem/1000/1000)}MB`;
+				count++
+				trace.x.push(count);
+				trace.y.push(Math.round(prefetch.freemem/1000/1000));
+				trace2.x.push(count);
+				trace2.y.push(prefetch.load[2]);
+
+				let data = [trace];
+				let data2 = [trace2];
+
+				Plotly.newPlot(document.getElementById("graph"), data, layout1, {"staticPlot":true});
+				Plotly.newPlot(document.getElementById("graph2"), data2, layout2, {"staticPlot":true});
+				colorize();
+				refresh();
+			}, 10000);
+		}
+	</script>
+</html>

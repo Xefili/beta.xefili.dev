@@ -1,0 +1,20 @@
+@config "tw.conf.js";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    .green {
+        @apply bg-emerald-500/50 border-emerald-500;
+    }
+    .yellow {
+        @apply bg-yellow-500/50 border-yellow-500;
+    }
+    .red {
+        @apply bg-red-500/50 border-red-500;
+    }
+    box {
+        @apply p-2 rounded-lg
+    }
+}
