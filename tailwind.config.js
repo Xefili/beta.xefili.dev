@@ -2,7 +2,7 @@
 const autoprefixer = require('autoprefixer');
 
 module.exports = {
-  content: ['*.html', "en//api//*.html", "de//api//*.html", "fr//api//*.html", "en//building/*.html", "de//building/*.html", "en//opensource/contribute.html", "de//opensource/contribute.html", "dashboard//index.html"],
+  content: ['*.html', "en//api//*.html", "de//api//*.html", "fr//api//*.html", "en//building/*.html", "de//building/*.html", "en//opensource/contribute.html", "de//opensource/contribute.html", "dashboard//index.html", "paneglobal//*.html"],
   theme: {
     fontFamily: {
       'circle': ['Plus Jakarta Sans', 'sans-serif'],
