@@ -6,7 +6,7 @@
   "scripts": {
     "devExtra": "npx tailwindcss -i dashboard/in.css -o dashboard/extra.css --watch",
     "dev": "npx tailwindcss -i styles/in.css -o styles/app.css --watch",
-    "build": "npx tailwindcss -i styles/in.css -o styles/app.css --minify && npx tailwindcss -i dashboard/in.css -o dashboard/extra.css --minify"
+    "build": "npx tailwindcss -i styles/in.css -o styles/app.css --minify"
   },
   "devDependencies": {
     "prettier": "^3.3.3",
