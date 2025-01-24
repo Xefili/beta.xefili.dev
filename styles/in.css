@@ -1,8 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer base {
+@layer components {
     @font-face {
         font-family: "Cascadia Code";
         src: url('../styles/CascadiaCode.ttf') format(truetype);
@@ -39,4 +37,16 @@
     box {
         @apply p-2 rounded-lg
     }
+}
+
+@theme {
+    --color-light-50: #e5e7eb;
+    --color-light-100: #d1d5db; /* for hover */
+
+    --color-dark-50: #1e1f20;
+    --color-dark-100: #333333; /* for hover */
+
+    --font-circle: "Plus Jakarta Sans", sans-serif;
+    --font-circleBold: "Plus Jakarta Sans Extrabold", sans-serif;
+    --font-mono: "Cascadia Code", "Ubuntu Mono", monospace;
 }

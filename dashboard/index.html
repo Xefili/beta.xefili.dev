@@ -33,15 +33,15 @@
 			<disclaimer class="lg:hidden text-5xl font-circleBold w-full text-center block">Please view this page on a desktop device!</disclaimer>
 			<!-- Sign in window -->
 			<div id="singin" class="flex w-full justify-center">
-				<div class="bg-light-50 dark:bg-darker-50 w-1/5 h-96 rounded-xl border-light-100 dark:border-darker-100 border-2 drop-shadow-xl shadow-black">
+				<div class="bg-light-50 dark:bg-dark-50 w-1/5 h-96 rounded-xl border-light-100 dark:border-dark-100 border-2 drop-shadow-xl shadow-black">
 					<div class="bg-red-500/70 absolute w-full rounded-t-xl h-8 text-center">
 						<p><strong>You need to log in first to view this page!</strong></p>
 					</div>
 					<div class="p-4">
 						<h1 class="mt-8">Log in</h1>
 						<p><em>Logging in as Henry.</em></p>
-						<input id="passwd" type="password" placeholder="password" class="bg-light-100 dark:bg-darker-100 rounded-lg p-2 mt-2">
-						<button onclick="signin()" class="bg-light-100 dark:bg-darker-100 rounded-lg p-2 absolute bottom-8 w-32 right-8">Log in</button>
+						<input id="passwd" type="password" placeholder="password" class="bg-light-100 dark:bg-dark-100 rounded-lg p-2 mt-2">
+						<button onclick="signin()" class="bg-light-100 dark:bg-dark-100 rounded-lg p-2 absolute bottom-8 w-32 right-8">Log in</button>
 						<alert class="hidden bg-red-500/50 border-2 border-red-500 p-2 w-full block my-8 rounded-lg">Wrong password, try again</alert>
 					</div>
 				</div>
@@ -54,7 +54,7 @@
 				<p>View current API statistics and modify database. Remember to keep the API Key secure when authenticating POST and DELETE requests!</p>
 				<!-- Subwindow 1 -->
 				<div class="flex flex-row gap-4 ml-4">
-					<div class="bg-light-50 dark:bg-darker-50 w-1/2 rounded-xl border-light-100 dark:border-darker-100 border-2 drop-shadow-xl shadow-black p-2">
+					<div class="bg-light-50 dark:bg-dark-50 w-1/2 rounded-xl border-light-100 dark:border-dark-100 border-2 drop-shadow-xl shadow-black p-2">
 						<h2>Current System Information</h2>
 						<div class="flex gap-2">
 							<box class="border-2" id="load"></box>
@@ -72,7 +72,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="bg-light-50 dark:bg-darker-50 w-1/4 rounded-xl border-light-100 dark:border-darker-100 border-2 drop-shadow-xl shadow-black p-2">
+					<div class="bg-light-50 dark:bg-dark-50 w-1/4 rounded-xl border-light-100 dark:border-dark-100 border-2 drop-shadow-xl shadow-black p-2">
 						<h2>Modify database</h2>
 						<div class="flex flex-row w-full gap-8">
 							<div>
@@ -80,22 +80,22 @@
 							</div>
 							<div class="flex flex-col">
 								<h3>Ressource address</h3>
-								<input class="w-full my-2 dark:text-white dark:bg-darker-50 bg-light-50 p-2 rounded-lg" type="url" name="" id="link" placeholder="Insert API endpoint URL...">
+								<input class="w-full my-2 dark:text-white dark:bg-dark-50 bg-light-50 p-2 rounded-lg" type="url" name="" id="link" placeholder="Insert API endpoint URL...">
 								<h3>Passphrase</h3>
-								<input class="w-full my-2 dark:text-white dark:bg-darker-50 bg-light-50 p-2 rounded-lg" type="password" name="" id="keystore" placeholder="API key">
-								<button onclick="deleteArticle()" id="submitreq" class="dark:hover:bg-darker-100 dark:bg-darker-50 bg-light-50 hover:bg-light-100 p-2 rounded-lg">Submit request</button>
+								<input class="w-full my-2 dark:text-white dark:bg-dark-50 bg-light-50 p-2 rounded-lg" type="password" name="" id="keystore" placeholder="API key">
+								<button onclick="deleteArticle()" id="submitreq" class="dark:hover:bg-dark-100 dark:bg-dark-50 bg-light-50 hover:bg-light-100 p-2 rounded-lg">Submit request</button>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="bg-light-50 dark:bg-darker-50 w-1/4 rounded-xl border-light-100 dark:border-darker-100 border-2 drop-shadow-xl shadow-black p-2 m-4 resize overflow-auto">
+				<div class="bg-light-50 dark:bg-dark-50 w-1/4 rounded-xl border-light-100 dark:border-dark-100 border-2 drop-shadow-xl shadow-black p-2 m-4 resize overflow-auto">
 					<h2>Post new article</h2>
-					<input class="w-full my-2 dark:text-white dark:bg-darker-50 bg-light-50 p-2 rounded-lg" type="text" name="" id="titleForm" placeholder="Title">
-					<textarea class="w-full my-2 dark:text-white dark:bg-darker-50 bg-light-50 p-2 rounded-lg" type="text" name="" id="contentForm" placeholder="Text, HTML supported"></textarea>
-					<input class="w-full my-2 dark:text-white dark:bg-darker-50 bg-light-50 p-2 rounded-lg" type="text" name="" id="tagForm" placeholder="Tags, comma separated">
-					<input class="w-full my-2 dark:text-white dark:bg-darker-50 bg-light-50 p-2 rounded-lg" type="password" name="" id="passphrase" placeholder="Passphrase">
+					<input class="w-full my-2 dark:text-white dark:bg-dark-50 bg-light-50 p-2 rounded-lg" type="text" name="" id="titleForm" placeholder="Title">
+					<textarea class="w-full my-2 dark:text-white dark:bg-dark-50 bg-light-50 p-2 rounded-lg" type="text" name="" id="contentForm" placeholder="Text, HTML supported"></textarea>
+					<input class="w-full my-2 dark:text-white dark:bg-dark-50 bg-light-50 p-2 rounded-lg" type="text" name="" id="tagForm" placeholder="Tags, comma separated">
+					<input class="w-full my-2 dark:text-white dark:bg-dark-50 bg-light-50 p-2 rounded-lg" type="password" name="" id="passphrase" placeholder="Passphrase">
 					<span id="date"></span>
-					<button type="submit" class="dark:hover:bg-darker-100 dark:bg-darker-50 bg-light-50 hover:bg-light-100 p-2 rounded-lg" onclick="getValues()">Submit</button>
+					<button type="submit" class="dark:hover:bg-dark-100 dark:bg-dark-50 bg-light-50 hover:bg-light-100 p-2 rounded-lg" onclick="getValues()">Submit</button>
 				</div>
 				<!-- End Subwindow 1 -->
 			</div>
