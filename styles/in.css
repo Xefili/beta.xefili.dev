@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@layer components {
+@layer base {
     @font-face {
         font-family: "Cascadia Code";
         src: url('../styles/CascadiaCode.ttf') format(truetype);
@@ -17,7 +17,7 @@
         @apply font-circleBold;
     }
     card {
-        @apply bg-gray-200 hover:bg-gray-300 dark:hover:bg-[#333333] dark:bg-[#1e1f20] flex flex-col dark:text-white w-auto lg:w-72 h-48 lg:h-72 p-4 m-2 rounded-xl;
+        @apply bg-light-200 hover:bg-light-300 dark:hover:bg-dark-300 dark:bg-dark-200 flex flex-col dark:text-white w-auto lg:w-72 h-48 lg:h-72 p-4 m-2 rounded-xl;
     }
     space {
         @apply block w-full h-8;
@@ -37,16 +37,32 @@
     box {
         @apply p-2 rounded-lg
     }
+    x-chip.selected {
+        @apply bg-gradient-to-r from-gradient-100 via-gradient-150 to-gradient-200 text-white p-[2px] pt-0! rounded-xl;
+    }
+    x-chip.selected .x-chip {
+        @apply mx-0;
+    }
+    .x-chip {
+        @apply bg-light-200 dark:bg-dark-200 dark:text-white text-black block mt-0.5 rounded-[10px] mx-1 cursor-pointer;
+    }
 }
 
 @theme {
-    --color-light-50: #e5e7eb;
-    --color-light-100: #d1d5db; /* for hover */
-
-    --color-dark-50: #1e1f20;
-    --color-dark-100: #333333; /* for hover */
-
     --font-circle: "Plus Jakarta Sans", sans-serif;
     --font-circleBold: "Plus Jakarta Sans Extrabold", sans-serif;
-    --font-mono: "Cascadia Code", "Ubuntu Mono", monospace;
+    --font-sans: "Roboto Flex", "system-ui", sans-serif;
+    --font-mono: "Jetbrains Mono", monospace;
+    
+    --color-gradient-100: #4e82ee;
+    --color-gradient-200: #a371bf;
+    --color-gradient-150: #d96570;
+
+    --color-dark-100: #131313; /* Use for background */
+    --color-dark-200: #232323; /* Use for emphasis */
+    --color-dark-300: #333333; /* Use for hover */
+
+    --color-light-100: #F5F5F5; /* Use for background */
+    --color-light-200: #E5E5E5; /* Use for emphasis */
+    --color-light-300: #D5D5D5; /* Use for hover */
 }

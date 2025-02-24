@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="assets/logo.svg" type="image/x-icon">
     <title>Documentation - Home</title>
 </head>
-<body class="dark:bg-[#131313] dark:text-white font-circle h-full">
+<body class="dark:bg-dark-100 bg-light-100 dark:text-white font-circle h-full">
     <pageHead class="fixed z-50 block h-12 w-full shadow-md dark:text-white">
         <leftDivision class="h-12 inline-grid grid-cols-[1fr 1fr] gap-2 justify-center items-center">
             <logoText class="col-start-2">
@@ -50,21 +50,12 @@
         <p class="mx-2 text-3xl text-gray-600">Find infos on everything, in 3 languages.</p>
 
         <div class="mt-12 w-full flex flex-col items-center">
-            <div class="flex flex-row gap-4 mb-4">
-                <div>
-                    <label for="eng">English</label>
-                    <input type="radio" name="langselect" id="eng" checked>
-                </div>
-                <div>
-                    <label for="deu">Deutsch</label>
-                    <input type="radio" name="langselect" id="deu">
-                </div>
-                <div>
-                    <label for="fra">Francais</label>
-                    <input type="radio" name="langselect" id="fra">
+            <div class="relative lg:w-1/2 w-full m-2 grid grid-rows-2 grid-cols-1 justify-center items-center">
+                <input class="lg:absolute lg:w-full relative p-4 rounded-2xl dark:bg-dark-200 bg-light-200 align-middle m-2" placeholder="search..." type="search" name="search" id="search">
+                <div class="lg:absolute relative right-2 lg:block flex lg:justify-center">
+                    <div id="radios" class="flex flex-row lg:justify-around lg:w-2/3"></div>
                 </div>
             </div>
-            <input class="lg:w-1/2 w-72 mx-4 p-4 rounded-2xl dark:bg-[#1e1f20]" placeholder="search..." type="search" name="search" id="search">
             <ul id="res" class="mt-8 mb-24 flex-col flex gap-2">
             </ul>
         </div>
@@ -74,26 +65,63 @@
                 <card class="relative">
                     <h1>API</h1>
                     <p>API documentation and usage examples.</p>
-                    <e class="text-3xl material-symbols-outlined bg-white dark:text-white dark:bg-[#131313] rounded-full px-3 py-2 w-fit absolute bottom-0 right-0 m-4">api</e>
+                    <e class="text-3xl material-symbols-outlined bg-light-300 dark:text-white dark:bg-dark-300 rounded-full px-3 py-2 w-fit absolute bottom-0 right-0 m-4">api</e>
                 </card>
             </a>
             <a href="/en/building/build.html">
                 <card class="relative">
                     <h1>Building</h1>
                     <p>How to build TailwindCSS for production or development use.</p>
-                    <e class="text-3xl material-symbols-outlined bg-white dark:text-white dark:bg-[#131313] rounded-full px-3 py-2 w-fit absolute bottom-0 right-0 m-4">window ios dns</e>
+                    <e class="text-3xl material-symbols-outlined bg-light-300 dark:text-white dark:bg-dark-300 rounded-full px-3 py-2 w-fit absolute bottom-0 right-0 m-4">window ios dns</e>
                 </card>
             </a>
             <a href="/en/opensource/contribute.html">
                 <card class="relative">
                     <h1>Contributing</h1>
                     <p>How to contribute and report mistakes and issues.</p>
-                    <e class="text-3xl material-symbols-outlined bg-white dark:text-white dark:bg-[#131313] rounded-full px-3 py-2 w-fit absolute bottom-0 right-0 m-4">crowdsource</e>
+                    <e class="text-3xl material-symbols-outlined bg-light-300 dark:text-white dark:bg-dark-300 rounded-full px-3 py-2 w-fit absolute bottom-0 right-0 m-4">crowdsource</e>
                 </card>
             </a>
         </div>
+        <div id="test" class="flex flex-row w-full gap-4 justify-center">
+
+        </div>
     </content>
 </body>
+<script>
+
+function radiofy() {
+    for(let i = 0; i < document.getElementsByClassName("x-chip").length; i++) {
+        document.getElementsByTagName("x-chip")[i].classList.remove("selected");
+    }
+}
+
+class Chip extends HTMLElement {
+    constructor() {
+        super();
+    }
+    connectedCallback() {
+        this.innerHTML = `
+            <chip class="px-2 py-1 bg-dark-200 x-chip"></chip>
+        `;
+        this.addEventListener("click", () => {
+            radiofy();
+            this.classList.toggle("selected");
+        });
+    }
+}
+
+customElements.define("x-chip", Chip);
+
+document.getElementById("radios").appendChild(new Chip()).id = "eng";
+document.getElementById("radios").appendChild(new Chip()).id = "deu";
+document.getElementById("radios").appendChild(new Chip()).id = "fra";
+document.getElementById("eng").children[0].innerHTML = "English";
+document.getElementById("eng").classList.add("selected");
+document.getElementById("deu").children[0].innerHTML = "Deutsch";
+document.getElementById("fra").children[0].innerHTML = "Francais";
+
+</script>
 <script>
 function openPP() {
     document.getElementById("privacyPolicy").classList.toggle("hidden");
@@ -132,13 +160,13 @@ import Fuse from 'https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.mjs';
 const fuse = new Fuse(data, {keys:["title", "parent"]});
 
 function getLang() {
-    if(document.getElementById("eng").checked) {
+    if(document.getElementById("eng").classList.contains("selected")) {
         return "en";
     }
-    if(document.getElementById("deu").checked) {
+    if(document.getElementById("deu").classList.contains("selected")) {
         return "de";
     }
-    if(document.getElementById("fra").checked) {
+    if(document.getElementById("fra").classList.contains("selected")) {
         return "fr";
     }
 }
