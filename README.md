@@ -6,4 +6,4 @@ This repo is special, it will be used to supply content for beta.xefili.dev and 
 
 ### Documentation
 
-This repo currently hosts the documentation. To create a new page, use the`template.html` file to get started.
+The documentation is finished. The repository will therefore be migrated soon. Until migration is completed, no further commits or pull requests are allowed.
